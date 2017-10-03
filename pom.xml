@@ -48,7 +48,6 @@
     <logback.version>1.1.2</logback.version>
 
     <!-- Core dependencies -->
-    <guava.version>22.0</guava.version>
     <kryo.version>4.0.0</kryo.version>
     <commons.lang3.version>3.5</commons.lang3.version>
     <commons.math3.version>3.6.1</commons.math3.version>

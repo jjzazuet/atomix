@@ -15,18 +15,14 @@
  */
 package io.atomix.utils;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static io.atomix.utils.Assert.isTrue;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Base implementation of an item accumulator. It allows triggering based on
@@ -66,17 +62,17 @@ public abstract class AbstractAccumulator<T> implements Accumulator<T> {
    */
   protected AbstractAccumulator(Timer timer, int maxItems,
                                 int maxBatchMillis, int maxIdleMillis) {
-    this.timer = checkNotNull(timer, "Timer cannot be null");
+    this.timer = requireNonNull(timer, "Timer cannot be null");
 
-    checkArgument(maxItems > 1, "Maximum number of items must be > 1");
-    checkArgument(maxBatchMillis > 0, "Maximum millis must be positive");
-    checkArgument(maxIdleMillis > 0, "Maximum idle millis must be positive");
+    isTrue(maxItems > 1, "Maximum number of items must be > 1");
+    isTrue(maxBatchMillis > 0, "Maximum millis must be positive");
+    isTrue(maxIdleMillis > 0, "Maximum idle millis must be positive");
 
     this.maxItems = maxItems;
     this.maxBatchMillis = maxBatchMillis;
     this.maxIdleMillis = maxIdleMillis;
 
-    items = Lists.newArrayListWithExpectedSize(maxItems);
+    items = new ArrayList<>(maxItems);
   }
 
   @Override
@@ -178,11 +174,11 @@ public abstract class AbstractAccumulator<T> implements Accumulator<T> {
   private List<T> finalizeCurrentBatch() {
     List<T> finalizedList;
     synchronized (items) {
-      finalizedList = ImmutableList.copyOf(items);
+      finalizedList = Collections.unmodifiableList(items);
       items.clear();
-            /*
-             * To avoid reprocessing being triggered on an empty list.
-             */
+      /*
+       * To avoid reprocessing being triggered on an empty list.
+       */
       cancelTask(maxTask);
       cancelTask(idleTask);
     }

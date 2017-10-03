@@ -25,7 +25,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Thread pool context.
@@ -61,7 +61,7 @@ public class ThreadPoolContext implements ThreadContext {
    * @param parent The thread pool on which to execute events.
    */
   public ThreadPoolContext(ScheduledExecutorService parent) {
-    this.parent = checkNotNull(parent, "parent cannot be null");
+    this.parent = requireNonNull(parent, "parent cannot be null");
 
     // This code was shamelessly stolededed from Vert.x:
     // https://github.com/eclipse/vert.x/blob/master/src/main/java/io/vertx/core/impl/OrderedExecutorFactory.java

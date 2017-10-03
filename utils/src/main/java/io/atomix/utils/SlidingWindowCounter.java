@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static io.atomix.utils.Assert.isTrue;
 
 /**
  * Maintains a sliding window of value counts. The sliding window counter is
@@ -54,7 +54,7 @@ public final class SlidingWindowCounter {
    * @param windowSlots total number of window slots
    */
   public SlidingWindowCounter(int windowSlots, ThreadContext context) {
-    checkArgument(windowSlots > 0, "Window size must be a positive integer");
+    isTrue(windowSlots > 0, "Window size must be a positive integer");
 
     this.windowSlots = windowSlots;
     this.headSlot = 0;
@@ -101,7 +101,7 @@ public final class SlidingWindowCounter {
    * @return total count for last N slots
    */
   public long get(int slots) {
-    checkArgument(slots <= windowSlots,
+    isTrue(slots <= windowSlots,
         "Requested window must be less than the total window slots");
 
     long sum = 0;

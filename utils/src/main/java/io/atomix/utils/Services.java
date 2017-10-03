@@ -15,16 +15,15 @@
  */
 package io.atomix.utils;
 
-import com.google.common.collect.Maps;
-
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Service utilities.
  */
 public final class Services {
-  private static final Map<Class, Object> services = Maps.newConcurrentMap();
+  private static final Map<Class, Object> services = new ConcurrentHashMap<>();
 
   /**
    * Loads the service for the given service class.

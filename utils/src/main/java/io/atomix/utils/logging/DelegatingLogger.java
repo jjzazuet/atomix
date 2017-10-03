@@ -15,10 +15,9 @@
  */
 package io.atomix.utils.logging;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
-
-import static com.google.common.base.MoreObjects.toStringHelper;
 
 /**
  * Delegating logger.
@@ -337,8 +336,8 @@ public class DelegatingLogger implements Logger {
 
   @Override
   public String toString() {
-    return toStringHelper(this)
-        .addValue(delegate)
-        .toString();
+    ReflectionToStringBuilder builder = new ReflectionToStringBuilder(this);
+    builder.append(delegate);
+    return builder.toString();
   }
 }

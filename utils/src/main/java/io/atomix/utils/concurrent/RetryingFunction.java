@@ -15,8 +15,6 @@
  */
 package io.atomix.utils.concurrent;
 
-import com.google.common.base.Throwables;
-
 import java.util.function.Function;
 
 /**
@@ -51,7 +49,7 @@ public class RetryingFunction<U, V> implements Function<U, V> {
                 return baseFunction.apply(input);
             } catch (Throwable t) {
                 if (!exceptionClass.isAssignableFrom(t.getClass()) || retryAttempts == maxRetries) {
-                    Throwables.propagate(t);
+                    throw new RuntimeException(t);
                 }
                 Retries.randomDelay(maxDelayBetweenRetries);
                 retryAttempts++;

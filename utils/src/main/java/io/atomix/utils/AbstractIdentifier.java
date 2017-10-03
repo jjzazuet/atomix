@@ -17,7 +17,7 @@ package io.atomix.utils;
 
 import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Abstract identifier backed by another value, e.g. string, int.
@@ -39,7 +39,7 @@ public class AbstractIdentifier<T extends Comparable<T>> implements Identifier<T
    * @param value the backing value
    */
   protected AbstractIdentifier(T value) {
-    this.identifier = checkNotNull(value, "Identifier cannot be null.");
+    this.identifier = requireNonNull(value, "Identifier cannot be null.");
   }
 
   /**

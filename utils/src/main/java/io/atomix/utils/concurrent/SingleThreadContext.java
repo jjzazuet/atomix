@@ -30,8 +30,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.google.common.base.Preconditions.checkState;
 import static io.atomix.utils.concurrent.Threads.namedThreads;
+import static io.atomix.utils.Assert.isTrue;
 
 /**
  * Single threaded context.
@@ -86,7 +86,7 @@ public class SingleThreadContext implements ThreadContext {
 
   private SingleThreadContext(Thread thread, ScheduledExecutorService executor) {
     this.executor = executor;
-    checkState(thread instanceof AtomixThread, "not a Catalyst thread");
+    isTrue(thread instanceof AtomixThread, "not a Catalyst thread");
     ((AtomixThread) thread).setContext(this);
   }
 

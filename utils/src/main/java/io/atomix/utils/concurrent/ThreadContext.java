@@ -17,7 +17,7 @@ package io.atomix.utils.concurrent;
 
 import java.util.concurrent.Executor;
 
-import static com.google.common.base.Preconditions.checkState;
+import static io.atomix.utils.Assert.isTrue;
 
 /**
  * Thread context.
@@ -51,7 +51,7 @@ public interface ThreadContext extends AutoCloseable, Executor, Scheduler {
    */
   static ThreadContext currentContextOrThrow() {
     ThreadContext context = currentContext();
-    checkState(context != null, "not on a Catalyst thread");
+    isTrue(context != null, "not on a Catalyst thread");
     return context;
   }
 
@@ -68,7 +68,7 @@ public interface ThreadContext extends AutoCloseable, Executor, Scheduler {
    * Checks that the current thread is the correct context thread.
    */
   default void checkThread() {
-    checkState(currentContext() == this, "not on a Catalyst thread");
+    isTrue(currentContext() == this, "not on a Catalyst thread");
   }
 
   /**

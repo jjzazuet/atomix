@@ -19,8 +19,8 @@ import org.slf4j.Logger;
 
 import java.util.concurrent.ThreadFactory;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.atomix.utils.concurrent.Threads.namedThreads;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Single thread context factory.
@@ -33,7 +33,7 @@ public class SingleThreadContextFactory implements ThreadContextFactory {
   }
 
   public SingleThreadContextFactory(ThreadFactory threadFactory) {
-    this.threadFactory = checkNotNull(threadFactory);
+    this.threadFactory = requireNonNull(threadFactory);
   }
 
   @Override

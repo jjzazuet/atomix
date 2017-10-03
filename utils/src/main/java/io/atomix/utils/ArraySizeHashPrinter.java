@@ -16,8 +16,7 @@
 
 package io.atomix.utils;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.MoreObjects.ToStringHelper;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -128,13 +127,13 @@ public final class ArraySizeHashPrinter {
 
   @Override
   public String toString() {
-    ToStringHelper helper = MoreObjects.toStringHelper(type);
+    ReflectionToStringBuilder builder = new ReflectionToStringBuilder(type);
     if (array != null) {
-      helper.add("length", array.length)
-          .add("hash", Arrays.hashCode(array));
+      builder.append("length", array.length);
+      builder.append("hash", Arrays.hashCode(array));
     } else {
-      helper.addValue(array);
+      builder.append(array);
     }
-    return helper.toString();
+    return builder.toString();
   }
 }

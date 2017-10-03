@@ -15,8 +15,7 @@
  */
 package io.atomix.utils.logging;
 
-import com.google.common.base.MoreObjects;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import java.util.function.Supplier;
 
@@ -60,8 +59,8 @@ public class LoggerContext {
    * Contextual logger builder.
    */
   public static class Builder implements io.atomix.utils.Builder<LoggerContext> {
-    private final MoreObjects.ToStringHelper identityStringHelper;
-    private MoreObjects.ToStringHelper argsStringHelper;
+    private final ReflectionToStringBuilder identityStringHelper;
+    private ReflectionToStringBuilder argsStringHelper;
     private boolean omitNullValues = false;
 
     public Builder(String name) {
